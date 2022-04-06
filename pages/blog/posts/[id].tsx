@@ -5,7 +5,7 @@ import axios from "axios";
 import ReactMarkdown from "react-markdown";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
 import {materialDark} from "react-syntax-highlighter/dist/cjs/styles/prism";
-import {url} from "../../../pages/api/hello";
+import {url} from "../../api/hello";
 
 import {theme} from "../../../styles/Chakra/theme";
 import {

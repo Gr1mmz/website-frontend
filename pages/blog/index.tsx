@@ -2,7 +2,7 @@ import {Heading, Container, Text, ColorModeScript} from "@chakra-ui/react";
 import Head from "next/head";
 import {GetStaticProps} from "next";
 import axios from "axios";
-import {url} from "../../pages/api/hello";
+import {url} from "../api/hello";
 
 import {theme} from "../../styles/Chakra/theme";
 import Layout from "../../components/Layout/Layout";

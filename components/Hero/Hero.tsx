@@ -3,7 +3,7 @@ import {Box, Flex, Image, Heading, Center} from "@chakra-ui/react";
 
 const Hero = () => {
     return (
-        <Center as="section" w="100vw" h="100vh">
+        <Center as="section" w="100%" h="100vh">
             <Flex alignItems="center"
                   justifyContent="center"
                   gap="2em"

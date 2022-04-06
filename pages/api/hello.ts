@@ -18,13 +18,13 @@ export default function handler(
 // export const url = production
 //     ? "https://admin.kraevskiy-web.ru/api/"
 //     : "https://localhost:1337/api/";
-export const url = "http://localhost:1337/api/";
+export const url = "https://warm-plains-44935.herokuapp.com/api/";
 
 export const addLike = (id: number, likes: number) => {
     const likesCount = {
         data: {
             attributes: {
-                likes: likes++,
+                likes: likes + 1,
             }
         }
     }

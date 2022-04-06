@@ -8,10 +8,12 @@ import {addLike} from "../../pages/api/hello";
 const PostItem = ({attributes, id}: PostProps) => {
     const [icon, setIcon] = useState(<AiOutlineHeart/>);
     const [iconColor, setIconColor] = useState("inherit");
+    const [likes, setLikes] = useState(attributes.likes);
     const onLikeClickHandler = () => {
         setIcon(<AiFillHeart/>);
         setIconColor("red");
-        addLike(id, attributes.likes);
+        addLike(id, likes);
+        setLikes(prevState => prevState + 1);
     }
     return (
         <Flex flexDirection="column"
@@ -41,7 +43,7 @@ const PostItem = ({attributes, id}: PostProps) => {
                     <Link color="teal.500">читать далее...</Link>
                 </NextLink>
                 <Box>
-                    {attributes.likes}
+                    {likes}
                     <IconButton
                         color={iconColor}
                         variant="ghost"
