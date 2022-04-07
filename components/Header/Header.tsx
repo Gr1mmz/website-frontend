@@ -78,7 +78,7 @@ const Header = () => {
                     />
                     <IconButton
                         as="a"
-                        href="https://t.me/grimmz"
+                        href="https://t.me/gr1mmz"
                         target="_blank"
                         aria-label="Telegram"
                         variant="ghost"
