@@ -1,5 +1,5 @@
 import React from 'react';
-import {Box, Flex, Heading, Img, Button} from "@chakra-ui/react";
+import {Box, Flex, Heading, Image, Button} from "@chakra-ui/react";
 import {FaGithub} from "react-icons/fa";
 import {FiArrowRight} from "react-icons/fi";
 
@@ -24,6 +24,7 @@ const PortfolioItem: React.FC<PortfolioItemProps> =
                     gap="1em"
                     flexDirection="row"
                     justifyContent="flex"
+                    alignItems="center"
                     sx={{
                         "@media screen and (max-width: 1024px)": {
                             flexDirection: "column",
@@ -31,21 +32,23 @@ const PortfolioItem: React.FC<PortfolioItemProps> =
                         }
                     }}
                 >
-                    <Img
+                    <Image
                         src={src}
-                        flex="1"
                         maxW="40%"
                         minW="290px"
                         alignSelf="center"
                         boxShadow="xl"
                         alt={header}
+                        fit="contain"
+                        align="top"
+                        h="auto"
                         sx={{
                             "@media screen and (max-width: 1024px)": {
                                 maxW: "60%"
                             }
                         }}
                     />
-                    <Box flex="1" maxW="580px" alignSelf="center">
+                    <Box maxW="580px" alignSelf="center">
                         <Heading
                             as="h3"
                             fontSize="1.2em"

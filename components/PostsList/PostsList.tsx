@@ -25,7 +25,7 @@ const PostsList = ({posts}: PostsProps) => {
         <Flex
             gap="2em"
             my="2em"
-            flexDirection="column"
+            flexDirection="column-reverse"
         >
             {posts
                 ? posts.data.map(post => <PostItem attributes={post.attributes} key={post.id} id={post.id}/>)
