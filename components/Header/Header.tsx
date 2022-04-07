@@ -42,8 +42,7 @@ const Header = () => {
                     <IconButton
                         justifySelf="flex-start"
                         as="a"
-                        href="https://kraevskiy-web.ru"
-                        target="_blank"
+                        href="/"
                         aria-label="Главная"
                         variant="ghost"
                         icon={<FaHome/>}

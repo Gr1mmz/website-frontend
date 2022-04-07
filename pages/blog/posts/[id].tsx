@@ -16,7 +16,7 @@ import {
     IconButton,
     Flex,
     Tag,
-    useColorMode,
+    Link,
     useColorModeValue
 } from "@chakra-ui/react";
 import Layout from "../../../components/Layout/Layout";
@@ -55,6 +55,8 @@ const Post = ({data}: any) => {
         setIconColor("red");
     };
     const postBg = useColorModeValue("blackAlpha.100", "blackAlpha.300");
+    const bqBg = useColorModeValue("blackAlpha.300", "blackAlpha.500");
+    const bqBorder = useColorModeValue("blackAlpha.500", "whiteAlpha.500");
     return (
         <>
             <Head>
@@ -91,20 +93,40 @@ const Post = ({data}: any) => {
                                             </SyntaxHighlighter>
                                         );
                                     },
+                                    a(props)  {
+                                        return (
+                                            <Link href={props.href} target="_blank" rel="noreferrer">
+                                                {props.children}
+                                            </Link>
+                                        )
+                                    },
+                                    blockquote(props) {
+                                        return(
+                                            <Box
+                                                bg={bqBg}
+                                                p="0em 1em 0em 2em"
+                                                borderLeft="0.5em solid"
+                                                borderColor={bqBorder}
+                                                m="0"
+                                            >
+                                                {props.children}
+                                            </Box>
+                                        )
+                                    }
                                 }}
                             >
                                 {data.data.attributes.body}
                             </ReactMarkdown>
-                            <Box alignSelf="flex-end" mt="1em">
-                                {data.data.attributes.likes}
-                                <IconButton
-                                    color={iconColor}
-                                    variant="ghost"
-                                    aria-label="like"
-                                    icon={icon}
-                                    onClick={() => onLikeClickHandler()}
-                                />
-                            </Box>
+                            {/*<Box alignSelf="flex-end" mt="1em">*/}
+                            {/*    {data.data.attributes.likes}*/}
+                            {/*    <IconButton*/}
+                            {/*        color={iconColor}*/}
+                            {/*        variant="ghost"*/}
+                            {/*        aria-label="like"*/}
+                            {/*        icon={icon}*/}
+                            {/*        onClick={() => onLikeClickHandler()}*/}
+                            {/*    />*/}
+                            {/*</Box>*/}
                         </Flex>
                     </Container>
                 </Box>

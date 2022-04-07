@@ -34,4 +34,14 @@ body {
 
 .blog__post p {
     text-align: justify;
+    margin: 1em 0;
+}
+
+.blog__post a {
+    color: #319795;
+    font-weight: bold;
+}
+
+.blog__post li {
+    margin-left: 1em;
 }

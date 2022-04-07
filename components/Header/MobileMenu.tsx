@@ -7,7 +7,7 @@ import {GiHamburgerMenu} from "react-icons/gi";
 import NextLink from "next/link";
 
 const MobileMenu = () => {
-    const {isOpen, onOpen, onClose, onToggle} = useDisclosure();
+    const {isOpen, onOpen, onClose} = useDisclosure();
     const btnRef = React.useRef();
     return (
         <>
@@ -37,9 +37,6 @@ const MobileMenu = () => {
                             mt="1em"
                             fontSize="1.5em"
                         >
-                            <NextLink href="https://kraevskiy-web.ru" passHref>
-                                <Link onClick={onClose}>Главная</Link>
-                            </NextLink>
                             <NextLink href="/#about" passHref>
                                 <Link onClick={onClose}>Обо мне</Link>
                             </NextLink>

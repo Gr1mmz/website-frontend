@@ -40,18 +40,18 @@ const PostItem = ({attributes, id}: PostProps) => {
             </Text>
             <Flex justifyContent="space-between" alignItems="center">
                 <NextLink href={`/blog/posts/${id}`} passHref>
-                    <Link color="teal.500">читать далее...</Link>
+                    <Link color="teal.500" fontWeight="bold">читать далее...</Link>
                 </NextLink>
-                <Box>
-                    {likes}
-                    <IconButton
-                        color={iconColor}
-                        variant="ghost"
-                        aria-label="like"
-                        icon={icon}
-                        onClick={() => onLikeClickHandler()}
-                    />
-                </Box>
+                {/*<Box>*/}
+                {/*    {likes}*/}
+                {/*    <IconButton*/}
+                {/*        color={iconColor}*/}
+                {/*        variant="ghost"*/}
+                {/*        aria-label="like"*/}
+                {/*        icon={icon}*/}
+                {/*        onClick={() => onLikeClickHandler()}*/}
+                {/*    />*/}
+                {/*</Box>*/}
             </Flex>
         </Flex>
     );
