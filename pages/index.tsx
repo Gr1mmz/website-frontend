@@ -8,23 +8,26 @@ import Portfolio from "../components/Portfolio/Portfolio";
 import Layout from "../components/Layout/Layout";
 
 const Home: NextPage = () => {
-    return (
-        <>
-            <Head>
-                <title>Михаил | Веб-разработчик из Иркутска</title>
-                <meta name="description" content="Михаил | Веб-разработчик из Иркутска"/>
-                <link rel="icon" href="/favicon.ico"/>
-            </Head>
-            <ColorModeScript initialColorMode={theme.config.initialColorMode} />
-            <Layout>
-                <main>
-                    <Hero/>
-                    <About/>
-                    <Portfolio/>
-                </main>
-            </Layout>
-        </>
-    )
+  const data = fetch("https://api.telegra.ph/getPage/Obo-mne-Kratkaya-predystoriya-i-zachem-vse-ehto-04-12?return_content=true")
+    .then(res => res.json())
+    .then((data) => console.log(data))
+  return (
+    <>
+      <Head>
+        <title>Михаил | Веб-разработчик из Иркутска</title>
+        <meta name="description" content="Михаил | Веб-разработчик из Иркутска"/>
+        <link rel="icon" href="/favicon.ico"/>
+      </Head>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
+      <Layout>
+        <main>
+          <Hero/>
+          <About/>
+          <Portfolio/>
+        </main>
+      </Layout>
+    </>
+  )
 }
 
 export default Home
