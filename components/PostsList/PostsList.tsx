@@ -8,23 +8,15 @@ interface IPostsList {
 }
 
 const PostsList: React.FC<IPostsList> = ({posts}) => {
-  console.log(posts)
   return (
     <Flex
       gap="2em"
       my="2em"
-      direction="column"
+      direction="column-reverse"
     >
-      {posts.map(post => (<Heading as="h3">{post.data.title}</Heading>))}
-      {/*{posts*/}
-      {/*    ? posts.map(post => (<Heading as="h3">{post.data.title}</Heading>))*/}
-      {/*    : <Heading as="h3">Постов пока нет</Heading>}*/}
-      {/*{posts*/}
-      {/*    ? posts.data.map(post => <PostItem attributes={post.attributes} key={post.id} id={post.id}/>)*/}
-      {/*    : <Heading as="h3">Постов пока нет</Heading>}*/}
-      {/*{posts}*/}
-      {/*? posts.map(post => post.data.title)*/}
-      {/*: <Heading as="h3">Постов пока нет</Heading>}*/}
+      {posts
+          ? posts.map(post => <PostItem key={post.id} id={post.id} post={post.data.result}/>)
+          : <Heading as="h3">Постов пока нет</Heading>}
     </Flex>
   );
 };

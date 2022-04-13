@@ -2,17 +2,20 @@ import {Heading, Container, Text, ColorModeScript} from "@chakra-ui/react";
 import Head from "next/head";
 import {GetStaticProps, NextPage} from "next";
 import axios from "axios";
-import {getPosts, url} from "../api/hello";
 import {theme} from "../../styles/Chakra/theme";
 import Layout from "../../components/Layout/Layout";
 import BlogWallpaper from "../../components/BlogWallpaper/BlogWallpaper";
 import PostsList from "../../components/PostsList/PostsList";
 import {PostData} from "../../config/types";
 import {postsUrls} from "../../config/config";
-import {useEffect, useState} from "react";
 
-const Blog: NextPage = ({posts}: any) => {
+interface IBlogPage {
+  posts: Array<PostData>
+}
+
+const Blog: NextPage<IBlogPage> = ({posts}) => {
   console.log(posts)
+
   return (
     <>
       <Head>
@@ -43,19 +46,16 @@ const Blog: NextPage = ({posts}: any) => {
 export default Blog;
 
 export const getStaticProps: GetStaticProps = async () => {
-  // const posts: Array<PostData> = [];
-  // await postsUrls.forEach(item => {
-  //     axios.get(item.url)
-  //         .then(response => {
-  //             posts.push({
-  //                 id: item.id,
-  //                 data: response.data.result
-  //             });
-  //         });
-  // });
-  const posts = await getPosts();
-  // console.log(posts)
-
+  const posts: Array<PostData> = [];
+  await Promise.all(postsUrls.map(url => axios.get(url)))
+    .then(results => {
+      results.forEach((result, index) => {
+        posts.push({
+          id: index + 1,
+          data: result.data
+        })
+      })
+    })
   return {
     props: {
       posts

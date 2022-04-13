@@ -6,11 +6,14 @@ import Hero from "../components/Hero/Hero";
 import About from "../components/About/About";
 import Portfolio from "../components/Portfolio/Portfolio";
 import Layout from "../components/Layout/Layout";
+import {useEffect} from "react";
 
 const Home: NextPage = () => {
-  const data = fetch("https://api.telegra.ph/getPage/Obo-mne-Kratkaya-predystoriya-i-zachem-vse-ehto-04-12?return_content=true")
-    .then(res => res.json())
-    .then((data) => console.log(data))
+  useEffect(() => {
+    const data = fetch("https://api.telegra.ph/getPage/Obo-mne-Kratkaya-predystoriya-i-zachem-vse-ehto-04-12?return_content=true")
+      .then(res => res.json())
+      .then((data) => console.log(data))
+  }, []);
   return (
     <>
       <Head>
