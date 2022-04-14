@@ -15,10 +15,3 @@ export default function handler(
   res.status(200).json({name: 'John Doe'})
 }
 
-// const production = process.env.NODE_ENV === "production";
-//
-// export const url = production
-//     ? "https://admin.kraevskiy-web.ru/api/"
-//     : "https://localhost:1337/api/";
-// export const url = "https://warm-plains-44935.herokuapp.com/api/";
-

@@ -9,11 +9,6 @@ import Layout from "../components/Layout/Layout";
 import {useEffect} from "react";
 
 const Home: NextPage = () => {
-  useEffect(() => {
-    const data = fetch("https://api.telegra.ph/getPage/Obo-mne-Kratkaya-predystoriya-i-zachem-vse-ehto-04-12?return_content=true")
-      .then(res => res.json())
-      .then((data) => console.log(data))
-  }, []);
   return (
     <>
       <Head>

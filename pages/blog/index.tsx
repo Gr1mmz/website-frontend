@@ -34,7 +34,6 @@ const Blog: NextPage<IBlogPage> = ({posts}) => {
             <Text>
               Лодырь, погромист, джаваскриптизер, инвестор
             </Text>
-            {/*{console.log(posts)}*/}
             <PostsList posts={posts}/>
           </Container>
         </main>
