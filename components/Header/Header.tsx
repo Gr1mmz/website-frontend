@@ -1,11 +1,13 @@
 import React from "react";
 import {Box, Container, IconButton, Link, Flex, useColorModeValue} from "@chakra-ui/react";
 import NextLink from "next/link";
+import {useRouter} from "next/router";
 import {FaGithub, FaVk, FaTelegram, FaHome} from "react-icons/fa";
 import {ColorModeSwitcher} from "../../styles/Chakra/ColorModeSwitcher";
 import MobileMenu from "./MobileMenu";
 
 const Header = () => {
+    const router = useRouter();
     const headerBackground = useColorModeValue("gray.50", "gray.700");
     const headerShadow = useColorModeValue("md", undefined);
     return (
@@ -29,8 +31,9 @@ const Header = () => {
                 alignItems="center"
                 justifyContent="space-between"
                 maxW="container.xl"
+                gap="0.5em"
             >
-                <Flex gap="1em">
+                <Flex gap="0.5em">
                     <Box display="block"
                          sx={{
                              "@media screen and (min-width: 501px)": {
@@ -41,12 +44,11 @@ const Header = () => {
                     </Box>
                     <IconButton
                         justifySelf="flex-start"
-                        as="a"
-                        href="/"
                         aria-label="Главная"
                         variant="ghost"
                         icon={<FaHome/>}
                         fontSize="1em"
+                        onClick={() => router.push("/")}
                     />
                     <Flex alignItems="center"
                          justifyContent="space-between" gap="1em"
@@ -66,7 +68,7 @@ const Header = () => {
                         </NextLink>
                     </Flex>
                 </Flex>
-                <Box>
+                <Flex gap="0.5em">
                     <IconButton
                         as="a"
                         href="https://github.com/Gr1mmz"
@@ -95,7 +97,7 @@ const Header = () => {
                         fontSize="1em"
                     />
                     <ColorModeSwitcher/>
-                </Box>
+                </Flex>
             </Container>
         </Flex>
     );

@@ -45,11 +45,11 @@ const Footer = () => {
                             </Link>
                             <Link
                                 isExternal
-                                href="https://t.me/grimmz"
+                                href="https://t.me/baikalFront"
                                 display="flex"
                                 alignItems="flex-start"
                             >
-                                Telegram <ExternalLinkIcon mx="0.3em" fontSize="0.8em"/>
+                                Telegram-канал <ExternalLinkIcon mx="0.3em" fontSize="0.8em"/>
                             </Link>
                             <Link
                                 isExternal
@@ -108,14 +108,6 @@ const Footer = () => {
                                 alignItems="flex-start"
                             >
                                 Chakra UI <ExternalLinkIcon mx="0.3em" fontSize="0.8em"/>
-                            </Link>
-                            <Link
-                                isExternal
-                                href="https://strapi.io/"
-                                display="flex"
-                                alignItems="flex-start"
-                            >
-                                Strapi CMS <ExternalLinkIcon mx="0.3em" fontSize="0.8em"/>
                             </Link>
                             <Link
                                 isExternal

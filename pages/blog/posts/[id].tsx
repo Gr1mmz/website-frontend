@@ -8,7 +8,7 @@ import ReactMarkdown from "react-markdown";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
 import {darcula} from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {theme} from "../../../styles/Chakra/theme";
-import {ColorModeScript, Container, Heading, Box, Flex, Tag, Link, Text, Button, Icon,
+import {ColorModeScript, Container, Heading, Box, Flex, Tag, Link, Text, Button, Icon, Divider,
   useColorModeValue} from "@chakra-ui/react";
 import {FaRegEye} from "react-icons/fa";
 import {AiOutlineArrowLeft} from "react-icons/ai";
@@ -96,7 +96,7 @@ const Post: React.FC<IPost> = ({post}) => {
               bg={postBg}
               borderRadius="lg"
             >
-              <Tag alignSelf="flex-start" mb="1em" as="a" href={post.author_url}>
+              <Tag alignSelf="flex-start" as="a" href={post.author_url} bg={bqBg}>
                 {post.author_name}
               </Tag>
               <Heading as="h2" mb="1em">{post.title}</Heading>
@@ -119,7 +119,7 @@ const Post: React.FC<IPost> = ({post}) => {
                     return (
                       <Box
                         bg={bqBg}
-                        p="0em 1em 0em 2em"
+                        p="1em 1em 1em 2em"
                         borderLeft="0.5em solid"
                         borderColor={bqBorder}
                         m="0"
@@ -129,22 +129,17 @@ const Post: React.FC<IPost> = ({post}) => {
                     )
                   },
                   p(props) {
-                    return <Text>{props.children}</Text>
+                    return <Text >{props.children}</Text>
                   }
                 }}
               >
                 {postBodyMarkdown}
               </ReactMarkdown>
-              <Box mt="1em">
-                {`Мой телеграм-канал: `}
+              <Divider mt="1em" bg={bqBg}/>
+              <Box mt="1em" textAlign="justify">
+                {`Не забудь подписаться на мой телеграм-канал, в котором я выкладываю полезные материалы для фронтенд-разработчиков: `}
                 <NextLink href="https://t.me/baikalFront" passHref>
                   <Link target="_blank">{"https://t.me/baikalFront"}</Link>
-                </NextLink>
-              </Box>
-              <Box mt="1em">
-                {`Ссылка на оригинальную статью: `}
-                <NextLink href={post.url} passHref>
-                  <Link target="_blank">{post.url}</Link>
                 </NextLink>
               </Box>
               <Flex alignSelf="flex-end" alignItems="center" gap="0.5em" mt="1em">
@@ -152,7 +147,7 @@ const Post: React.FC<IPost> = ({post}) => {
                 {post.views}
               </Flex>
             </Flex>
-            <Flex mt="2em" justifyContent="space-between">
+            <Flex mt="2em" justifyContent="space-between" gap="1em">
               <Button
                 as="a"
                 variant="outline"

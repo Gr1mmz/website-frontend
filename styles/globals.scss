@@ -27,9 +27,11 @@ body {
     h6 {
         font-size: 1em;
     }
+    &>p {
+        margin-top: 1em;
+    }
     p {
         text-align: justify;
-        margin: 1em 0;
     }
     a {
         color: #319795;
@@ -40,5 +42,8 @@ body {
     }
     li {
         margin-left: 1em;
+    }
+    img {
+        margin: 0 auto;
     }
 }
