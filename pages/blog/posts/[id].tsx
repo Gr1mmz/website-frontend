@@ -1,138 +1,213 @@
-import React, {useState} from "react";
-import {GetStaticPaths, GetStaticProps} from "next";
+import React from "react";
 import Head from "next/head";
+import {useRouter} from "next/router";
+import NextLink from "next/link";
 import axios from "axios";
+import {NodeHtmlMarkdown} from 'node-html-markdown';
 import ReactMarkdown from "react-markdown";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
-import {materialDark} from "react-syntax-highlighter/dist/cjs/styles/prism";
-import {url} from "../../api/hello";
-
+import {darcula} from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {theme} from "../../../styles/Chakra/theme";
-import {
-    ColorModeScript,
-    Container,
-    Heading,
-    Box,
-    IconButton,
-    Flex,
-    Tag,
-    Link,
-    useColorModeValue
-} from "@chakra-ui/react";
+import {ColorModeScript, Container, Heading, Box, Flex, Tag, Link, Text, Button, Icon,
+  useColorModeValue} from "@chakra-ui/react";
+import {FaRegEye} from "react-icons/fa";
+import {AiOutlineArrowLeft} from "react-icons/ai";
+import {getPostBaseUrl} from "../../../config/config";
+import {PostContentType} from "../../../config/types";
 import Layout from "../../../components/Layout/Layout";
-import {PostProps} from "../../../components/PostsList/PostsList";
-import {AiFillHeart, AiOutlineHeart} from "react-icons/ai";
 
-export const getStaticPaths: GetStaticPaths = async () => {
-    const response = await axios.get(`${url}posts`);
-    const posts: Array<PostProps> = await response.data.data;
-    const paths = posts.map(item => {
-        return {params: {id: String(item.id)}}
-    });
+interface IPost {
+  post: {
+    author_name: string,
+    author_url: string,
+    content: Array<PostContentType>,
+    description: string,
+    path: string,
+    title: string,
+    url: string,
+    views: number
+  }
+}
 
-    return {
-        paths,
-        fallback: false,
-    };
-};
+type NodeType = {
+  tag: string,
+  attrs: Array<string>,
+  childs: string
+}
 
-export const getStaticProps: GetStaticProps = async ({params}) => {
-    const {data} = await axios.get(`${url}posts/${params?.id}`);
-
-    return {
-        props: {
-            data,
-        },
-        revalidate: 1,
-    };
-};
-
-const Post = ({data}: any) => {
-    const [icon, setIcon] = useState(<AiOutlineHeart/>);
-    const [iconColor, setIconColor] = useState("inherit");
-    const onLikeClickHandler = () => {
-        setIcon(<AiFillHeart/>);
-        setIconColor("red");
-    };
-    const postBg = useColorModeValue("blackAlpha.100", "blackAlpha.300");
-    const bqBg = useColorModeValue("blackAlpha.300", "blackAlpha.500");
-    const bqBorder = useColorModeValue("blackAlpha.500", "whiteAlpha.500");
-    return (
-        <>
-            <Head>
-                <title>{data.data.attributes.title}</title>
-                <meta name="description" content={data.data.attributes.title}/>
-            </Head>
-            <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
-            <Layout>
-                <Box as="main" py="6em">
-                    <Container maxW="container.lg" textAlign="center">
-                        <Flex
-                            className="blog__post"
-                            flexDirection="column"
-                            p="1.5em"
-                            textAlign="left"
-                            bg={postBg}
-                            borderRadius="lg"
-                        >
-                            <Tag alignSelf="flex-start" mb="1em">
-                                {data.data.attributes.date}
-                            </Tag>
-                            <Heading as="h2" mb="1em">
-                                {data.data.attributes.title}
-                            </Heading>
-                            <ReactMarkdown
-                                components={{
-                                    code({className, children}) {
-                                        const language = className?.replace("language-", "");
-                                        return (
-                                            <SyntaxHighlighter
-                                                style={materialDark}
-                                                language={language}
-                                            >{children[0]}
-                                            </SyntaxHighlighter>
-                                        );
-                                    },
-                                    a(props)  {
-                                        return (
-                                            <Link href={props.href} target="_blank" rel="noreferrer">
-                                                {props.children}
-                                            </Link>
-                                        )
-                                    },
-                                    blockquote(props) {
-                                        return(
-                                            <Box
-                                                bg={bqBg}
-                                                p="0em 1em 0em 2em"
-                                                borderLeft="0.5em solid"
-                                                borderColor={bqBorder}
-                                                m="0"
-                                            >
-                                                {props.children}
-                                            </Box>
-                                        )
-                                    }
-                                }}
-                            >
-                                {data.data.attributes.body}
-                            </ReactMarkdown>
-                            {/*<Box alignSelf="flex-end" mt="1em">*/}
-                            {/*    {data.data.attributes.likes}*/}
-                            {/*    <IconButton*/}
-                            {/*        color={iconColor}*/}
-                            {/*        variant="ghost"*/}
-                            {/*        aria-label="like"*/}
-                            {/*        icon={icon}*/}
-                            {/*        onClick={() => onLikeClickHandler()}*/}
-                            {/*    />*/}
-                            {/*</Box>*/}
-                        </Flex>
-                    </Container>
-                </Box>
-            </Layout>
-        </>
-    );
+const Post: React.FC<IPost> = ({post}) => {
+  const router = useRouter();
+  const nodeToDom = (item: any) => {
+    let node: NodeType = {tag: "", attrs: [], childs: ""}
+    if (typeof item === "string") {
+      node.childs = `${item}`;
+    }
+    if (item.tag) {
+      if (item.attrs) {
+        let attrs = [];
+        for (let key in item.attrs) {
+          attrs.push(`${key}="${item.attrs[key]}"`);
+        }
+        node.tag = item.tag;
+        node.attrs = attrs;
+      } else {
+        node.tag = item.tag;
+      }
+      if (item.children) {
+        let childrens = [];
+        for (let i = 0; i < item.children.length; i++) {
+          let child = item.children[i];
+          childrens.push(nodeToDom(child));
+          node.childs = childrens.join("");
+        }
+      }
+    }
+    if (item.tag === "pre") {
+      return `<${item.tag}><code>${item.children[0]}</code></${item.tag}>`
+    }
+    if (node.tag.length > 0) {
+      return `<${node.tag} ${[...node.attrs]}>${node.childs}</${node.tag}>`
+    } else {
+      return `${node.childs}`
+    }
+  };
+  const postBody = post.content.map(item => {
+    return nodeToDom(item);
+  });
+  const postBodyMarkdown = NodeHtmlMarkdown.translate(postBody.join(""));
+  const postBg = useColorModeValue("blackAlpha.100", "blackAlpha.300");
+  const bqBg = useColorModeValue("blackAlpha.300", "blackAlpha.500");
+  const bqBorder = useColorModeValue("blackAlpha.500", "whiteAlpha.500");
+  return (
+    <>
+      <Head>
+        <title>{post.title}</title>
+        <meta name="description" content={post.title}/>
+      </Head>
+      <ColorModeScript initialColorMode={theme.config.initialColorMode}/>
+      <Layout>
+        <Box as="main" p="6em 0 4em 0">
+          <Container maxW="container.lg" textAlign="center">
+            <Flex
+              className="blog__post"
+              flexDirection="column"
+              p="1.5em"
+              textAlign="left"
+              bg={postBg}
+              borderRadius="lg"
+            >
+              <Tag alignSelf="flex-start" mb="1em" as="a" href={post.author_url}>
+                {post.author_name}
+              </Tag>
+              <Heading as="h2" mb="1em">{post.title}</Heading>
+              <ReactMarkdown
+                components={{
+                  code({children}) {
+                    return (
+                      <SyntaxHighlighter
+                        style={darcula}
+                        language={"javascript"}
+                        showLineNumbers
+                      >{children[0]}
+                      </SyntaxHighlighter>
+                    );
+                  },
+                  a(props) {
+                    return <Link href={props.href} target="_blank" rel="noreferrer">{props.children}</Link>
+                  },
+                  blockquote(props) {
+                    return (
+                      <Box
+                        bg={bqBg}
+                        p="0em 1em 0em 2em"
+                        borderLeft="0.5em solid"
+                        borderColor={bqBorder}
+                        m="0"
+                      >
+                        {props.children}
+                      </Box>
+                    )
+                  },
+                  p(props) {
+                    return <Text>{props.children}</Text>
+                  }
+                }}
+              >
+                {postBodyMarkdown}
+              </ReactMarkdown>
+              <Box mt="1em">
+                {`Мой телеграм-канал: `}
+                <NextLink href="https://t.me/baikalFront" passHref>
+                  <Link target="_blank">{"https://t.me/baikalFront"}</Link>
+                </NextLink>
+              </Box>
+              <Box mt="1em">
+                {`Ссылка на оригинальную статью: `}
+                <NextLink href={post.url} passHref>
+                  <Link target="_blank">{post.url}</Link>
+                </NextLink>
+              </Box>
+              <Flex alignSelf="flex-end" alignItems="center" gap="0.5em" mt="1em">
+                <Icon as={FaRegEye}/>
+                {post.views}
+              </Flex>
+            </Flex>
+            <Flex mt="2em" justifyContent="space-between">
+              <Button
+                as="a"
+                variant="outline"
+                bg={postBg}
+                cursor="pointer"
+                onClick={() => router.push("/blog")}
+                sx={{
+                  _hover: {
+                    bg: `${bqBg}`
+                  }
+                }}
+              >
+                <Icon as={AiOutlineArrowLeft} mr="0.5em"/>
+                Назад к постам
+              </Button>
+              <Button
+                as="a"
+                variant="outline"
+                bg={postBg}
+                cursor="pointer"
+                onClick={() => router.push("/")}
+                sx={{
+                  _hover: {
+                    bg: `${bqBg}`
+                  }
+                }}
+              >
+                На главную
+              </Button>
+            </Flex>
+          </Container>
+        </Box>
+      </Layout>
+    </>
+  );
 };
 
 export default Post;
+
+// @ts-ignore
+Post.getInitialProps = async (ctx) => {
+  // @ts-ignore
+  const response = await axios.get(`${getPostBaseUrl}${ctx.query.id}?return_content=true`);
+  const post = await response.data.result;
+  // @ts-ignore
+  post.content.map(item => {
+    if (item.tag === "figure") {
+      // @ts-ignore
+      let link = `https://telegra.ph${item.children[0].attrs.src}`
+      // @ts-ignore
+      item.children[0].attrs.src = link;
+    }
+  });
+
+  return {
+    post
+  }
+}

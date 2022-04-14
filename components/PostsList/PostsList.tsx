@@ -1,37 +1,24 @@
 import React from "react";
 import {Flex, Heading} from "@chakra-ui/react";
 import PostItem from "./PostItem";
+import {PostData} from "../../config/types";
 
-export interface PostProps {
-    attributes: {
-        title: string,
-        body: string,
-        description: string,
-        likes: number,
-        date: string
-    },
-    id: number
+interface IPostsList {
+  posts: Array<PostData>
 }
 
-export interface PostsProps {
-    posts?: {
-        data: Array<PostProps>,
-        meta: object,
-    }
-}
-
-const PostsList = ({posts}: PostsProps) => {
-    return (
-        <Flex
-            gap="2em"
-            my="2em"
-            direction="column"
-        >
-            {posts
-                ? posts.data.map(post => <PostItem attributes={post.attributes} key={post.id} id={post.id}/>)
-                : <Heading as="h3">Постов пока нет</Heading>}
-        </Flex>
-    );
+const PostsList: React.FC<IPostsList> = ({posts}) => {
+  return (
+    <Flex
+      gap="2em"
+      my="2em"
+      direction="column-reverse"
+    >
+      {posts
+          ? posts.map(post => <PostItem key={post.id} id={post.id} post={post.data.result}/>)
+          : <Heading as="h3">Постов пока нет</Heading>}
+    </Flex>
+  );
 };
 
 export default PostsList;
