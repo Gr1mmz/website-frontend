@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Head from "next/head";
 import axios from "axios";
 import ReactMarkdown from "react-markdown";
@@ -42,39 +42,66 @@ interface IPost {
 
 const Post: React.FC<IPost> = ({post}) => {
   const router = useRouter();
-  const postBody = post.content.map((item, index) => {
-    if (index < post.content.length - 1) {
-      if (item.tag === "hr") {
-        return <hr/>
-      }
-      if (item.tag === "figure") {
-        // @ts-ignore
-        return <img src={`https://telegra.ph/${item.children[0].attrs.src}`}/>
-      }
-      if (item.children.length > 2) {
-        const newEl = item.children.map(el => {
-          if (typeof el === "string") {
-            return el;
-          }
-          if (typeof el === "object") {
-            // @ts-ignore
-            if (el.tag === "a") {
-              // @ts-ignore
-              return `<a {...el.attrs}>${el.children}</a>`
-            }
-          }
-        })
-      }
-      if (item.tag === "pre") {
-        return <code>{item.children}</code>
-      }
-      return `<${item.tag}>${item.children.join("")}</${item.tag}>`
-    }
-    return null
-  }).join("");
-  //.join("")
+  // const nodeToDom = (item: PostContentType) => {
+  //   let domNode;
+  //   if (typeof item === 'string' || item instanceof String) {
+  //     return React.createElement(item.tag);
+  //   }
+  //   if (item.tag) {
+  //     domNode = React.createElement(item.tag);
+  //     if (item.attrs) {
+  //       for (let name in item.attrs) {
+  //         let value = item.attrs[name];
+  //         domNode.key = name;
+  //         // domNode.setAttribute(name, value);
+  //       }
+  //     } else {
+  //       domNode = React.createElement(React.Fragment);
+  //     }
+  //   }
+  //   if (item.children) {
+  //     for (let i = 0; i < item.children.length; i++) {
+  //       let child = item.children[i];
+  //       // @ts-ignore
+  //       domNode.props.children = nodeToDom(item);
+  //     }
+  //   }
+  //   return domNode
+  // }
+
+  const postBody = post.content.map((item) => {
+    // if (index < post.content.length) {
+    //   if (item.tag === "hr") {
+    //     return <hr/>
+    //   }
+    //   if (item.tag === "figure") {
+    //     // @ts-ignore
+    //     return <img src={`${item.children[0].attrs.src}`}/>
+    //   }
+    //   if (item.children.length > 2) {
+    //     const newEl = item.children.map(el => {
+    //       if (typeof el === "string") {
+    //         return el;
+    //       }
+    //       if (typeof el === "object") {
+    //         // @ts-ignore
+    //         if (el.tag === "a") {
+    //           // @ts-ignore
+    //           return `<a {...el.attrs}>${el.children}</a>`
+    //         }
+    //       }
+    //     })
+    //   }
+    //   return `<${item.tag}>${item.children.join("")}</${item.tag}>`
+    // }
+    // return null
+    return nodeToDom(item);
+  });
+  // .join("")
   console.log(postBody);
-  const postBodyMarkdown = NodeHtmlMarkdown.translate(postBody);
+
+  // console.log(postBody);
+  // const postBodyMarkdown = NodeHtmlMarkdown.translate(postBody);
   const postBg = useColorModeValue("blackAlpha.100", "blackAlpha.300");
   const bqBg = useColorModeValue("blackAlpha.300", "blackAlpha.500");
   const bqBorder = useColorModeValue("blackAlpha.500", "whiteAlpha.500");
@@ -143,9 +170,9 @@ const Post: React.FC<IPost> = ({post}) => {
                   }
                 }}
               >
-                {postBodyMarkdown}
+                {/*{postBodyMarkdown}*/}
               </ReactMarkdown>
-              <Box>
+              <Box mt="1em">
                 {`Ссылка на оригинальную статью: `}
                 <NextLink href={post.url} passHref>
                   <Link>{post.url}</Link>
@@ -201,6 +228,18 @@ Post.getInitialProps = async (ctx) => {
   // @ts-ignore
   const response = await axios.get(`${getPostBaseUrl}${ctx.query.id}?return_content=true`);
   const post = await response.data.result;
+  // @ts-ignore
+  post.content.map(item => {
+    if (item.tag === "figure") {
+      // @ts-ignore
+      let link = `https://telegra.ph${item.children[0].attrs.src}`
+      // @ts-ignore
+      item.children[0].attrs.src = link;
+    }
+    if (item.tag === "pre") {
+      item.tag = "code";
+    }
+  });
 
   return {
     post

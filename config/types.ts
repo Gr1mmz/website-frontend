@@ -5,7 +5,8 @@ export type PostData = {
 
 export type PostContentType = {
   tag: string,
-  children: Array<string>
+  children: Array<string>,
+  attrs?: Array<object>
 }
 
 export type PostType = {
