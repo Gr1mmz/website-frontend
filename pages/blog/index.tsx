@@ -3,18 +3,13 @@ import Head from "next/head";
 import {GetStaticProps, NextPage} from "next";
 import axios from "axios";
 import {theme} from "../../styles/Chakra/theme";
-import Layout from "../../components/Layout/Layout";
-import BlogWallpaper from "../../components/BlogWallpaper/BlogWallpaper";
-import PostsList from "../../components/PostsList/PostsList";
-import {PostData} from "../../config/types";
+import {IPostData, PostData} from "../../config/types";
 import {postsUrls} from "../../config/config";
+import Layout from "../../components/Layout/Layout";
+import BlogWallpaper from "../../components/BlogPage/BlogWallpaper/BlogWallpaper";
+import PostsList from "../../components/BlogPage/PostsList/PostsList";
 
-interface IBlogPage {
-  posts: Array<PostData>
-}
-
-const Blog: NextPage<IBlogPage> = ({posts}) => {
-
+const Blog: NextPage<IPostData> = ({posts}) => {
   return (
     <>
       <Head>
@@ -27,12 +22,8 @@ const Blog: NextPage<IBlogPage> = ({posts}) => {
         <main>
           <BlogWallpaper/>
           <Container maxW="container.lg" textAlign="center">
-            <Heading as="h2" mt="2em">
-              Михаил Краевский. Личный блог
-            </Heading>
-            <Text>
-              Лодырь, погромист, джаваскриптизер, инвестор
-            </Text>
+            <Heading as="h2" mt="2em">Михаил Краевский. Личный блог</Heading>
+            <Text>Лодырь, погромист, джаваскриптизер, инвестор</Text>
             <PostsList posts={posts}/>
           </Container>
         </main>
@@ -49,8 +40,7 @@ export const getStaticProps: GetStaticProps = async () => {
     .then(results => {
       results.forEach((result, index) => {
         posts.push({
-          id: index + 1,
-          data: result.data
+          post: result.data
         })
       })
     })

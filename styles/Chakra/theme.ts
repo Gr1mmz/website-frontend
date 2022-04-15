@@ -43,7 +43,7 @@ const Button: ComponentStyleConfig = {
 };
 
 const config: ThemeConfig = {
-    initialColorMode: 'dark'
+    initialColorMode: "dark"
 }
 
 export const theme = extendTheme({

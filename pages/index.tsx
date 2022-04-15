@@ -2,11 +2,11 @@ import type {NextPage} from "next";
 import {ColorModeScript} from "@chakra-ui/react";
 import {theme} from "../styles/Chakra/theme";
 import Head from "next/head";
-import Hero from "../components/Hero/Hero";
-import About from "../components/About/About";
-import Portfolio from "../components/Portfolio/Portfolio";
+import Hero from "../components/HomePage/Hero/Hero";
+import About from "../components/HomePage/About/About";
+import Portfolio from "../components/HomePage/Portfolio/Portfolio";
 import Layout from "../components/Layout/Layout";
-import Blog from "../components/BlogForHome/Blog";
+import Blog from "../components/HomePage/BlogSection/Blog";
 
 const Home: NextPage = () => {
   return (
