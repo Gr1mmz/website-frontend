@@ -1,9 +1,3 @@
-const production = process.env.NODE_ENV === "production";
-
-export const url = production
-  ? "https://www.yoursite.com"
-  : "https://localhost:1337/api/";
-
 export const getPostBaseUrl = "https://api.telegra.ph/getPage/";
 
 export const botToken = "5226295842:AAFHD65KzujA9MTSPaakIf46tSO11DQcIKk";

@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect} from "react";
 import Head from "next/head";
 import {useRouter} from "next/router";
 import NextLink from "next/link";
@@ -12,9 +12,10 @@ import {ColorModeScript, Container, Heading, Box, Flex, Tag, Link, Text, Button,
   useColorModeValue} from "@chakra-ui/react";
 import {FaRegEye} from "react-icons/fa";
 import {AiOutlineArrowLeft} from "react-icons/ai";
-import {getPostBaseUrl} from "../../../config/config";
+import {getPostBaseUrl, postsUrls} from "../../../config/config";
 import {PostContentType} from "../../../config/types";
 import Layout from "../../../components/Layout/Layout";
+import {GetStaticPaths, GetStaticProps, NextPage} from "next";
 
 interface IPost {
   post: {
@@ -35,7 +36,7 @@ type NodeType = {
   childs: string
 }
 
-const Post: React.FC<IPost> = ({post}) => {
+const Post: NextPage<IPost> = ({post}) => {
   const router = useRouter();
   const nodeToDom = (item: any) => {
     let node: NodeType = {tag: "", attrs: [], childs: ""}
@@ -187,22 +188,40 @@ const Post: React.FC<IPost> = ({post}) => {
 
 export default Post;
 
+export const getStaticPaths: GetStaticPaths = async () => {
+  const posts: Array<any> = [];
+  let paths = [];
+  await Promise.all(postsUrls.map(url => axios.get(url)))
+    .then(results => {
+      results.forEach((result) => {
+        posts.push(result.data.result)
+      })
+    });
+
+  paths = posts.map(post => {
+    return {params: {id: post.path}}
+  });
+
+  return {
+    paths,
+    fallback: false // false or 'blocking'
+  };
+}
+
 // @ts-ignore
-Post.getInitialProps = async (ctx) => {
-  // @ts-ignore
-  const response = await axios.get(`${getPostBaseUrl}${ctx.query.id}?return_content=true`);
+export const getStaticProps: GetStaticProps = async ({params}) => {
+  const response = await axios.get(`${getPostBaseUrl}${params?.id}?return_content=true`);
   const post = await response.data.result;
-  // @ts-ignore
-  post.content.map(item => {
+
+  post.content.forEach((item: any) => {
     if (item.tag === "figure") {
-      // @ts-ignore
-      let link = `https://telegra.ph${item.children[0].attrs.src}`
-      // @ts-ignore
-      item.children[0].attrs.src = link;
+      item.children[0].attrs.src = `https://telegra.ph${item.children[0].attrs.src}`;
     }
   });
 
   return {
-    post
-  }
+    props: {
+      post
+    }
+  };
 }

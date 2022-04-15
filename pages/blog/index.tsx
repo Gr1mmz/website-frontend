@@ -14,7 +14,6 @@ interface IBlogPage {
 }
 
 const Blog: NextPage<IBlogPage> = ({posts}) => {
-  console.log(posts)
 
   return (
     <>

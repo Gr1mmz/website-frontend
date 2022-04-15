@@ -7,7 +7,7 @@ const BlogWallpaper = () => {
             position="relative"
             minW="100%"
             height="40vh"
-            bg={`url(./blog_layout.jpeg)`}
+            bg={`url(../blog_layout.jpeg)`}
             bgPosition="0% 75%"
             bgRepeat="no-repeat"
             bgSize="cover"
@@ -17,7 +17,7 @@ const BlogWallpaper = () => {
             <Img
                 position="absolute"
                 bottom="-10%"
-                src={`./avatar.jpg`}
+                src={`../avatar.jpg`}
                 borderRadius="full"
                 boxSize="150px"
                 alt="Mikhail Kraevskiy"

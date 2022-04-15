@@ -6,7 +6,7 @@ import Hero from "../components/Hero/Hero";
 import About from "../components/About/About";
 import Portfolio from "../components/Portfolio/Portfolio";
 import Layout from "../components/Layout/Layout";
-import {useEffect} from "react";
+import Blog from "../components/BlogForHome/Blog";
 
 const Home: NextPage = () => {
   return (
@@ -22,6 +22,7 @@ const Home: NextPage = () => {
           <Hero/>
           <About/>
           <Portfolio/>
+          <Blog/>
         </main>
       </Layout>
     </>

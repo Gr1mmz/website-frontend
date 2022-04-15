@@ -6,6 +6,7 @@ const nextConfig = {
     loader: "default",
     domains: ["localhost"],
   },
+  trailingSlash: true,
 }
 
 module.exports = nextConfig;
