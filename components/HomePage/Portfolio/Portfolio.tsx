@@ -8,7 +8,7 @@ const Portfolio: React.FC = () => {
     <Box as="section" py="4em" id="portfolio">
       <Container maxW="container.lg">
         <Heading as="h2" textAlign="center" mb="1em" fontSize="2.5em">Портфолио</Heading>
-        <Flex flexDirection="column-reverse" gap="3em">
+        <Flex flexDirection="column-reverse" mt="2em">
           {portfolioTexts.map(item => <PortfolioItem data={item} key={item.header}/>)}
         </Flex>
       </Container>

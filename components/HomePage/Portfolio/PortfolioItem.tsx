@@ -17,7 +17,7 @@ interface PortfolioItemProps {
 
 const PortfolioItem: React.FC<PortfolioItemProps> = ({data}) => {
   return (
-    <Box>
+    <Box mt="3em">
       <Flex gap="1em" flexDirection="row" justifyContent="flex" alignItems="center"
             sx={{
               "@media screen and (max-width: 1024px)": {
