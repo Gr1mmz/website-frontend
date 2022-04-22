@@ -15,17 +15,23 @@ import {
 import {FaRegEye} from "react-icons/fa";
 import {AiOutlineArrowLeft} from "react-icons/ai";
 import {getPostBaseUrl, postsUrls} from "../../../config/config";
-import {IPostItem, NodeType, PostContentType} from "../../../config/types";
+import {IPostItem} from "../../../config/types";
 import Layout from "../../../components/Layout/Layout";
 import {GetStaticPaths, GetStaticProps, NextPage} from "next";
 import {nodeToDom} from "../../api/hello";
 
 const Post: NextPage<IPostItem> = ({post}) => {
   const router = useRouter();
+  // console.log(post)
   const postBody = post.content.map(item => {
     return nodeToDom(item);
   });
-  const postBodyMarkdown = NodeHtmlMarkdown.translate(postBody.join(""));
+  // console.log(postBody)
+  const postBodyMarkdown = NodeHtmlMarkdown.translate(postBody.join(""),
+    {},
+    {},
+    {});
+  // console.log(postBodyMarkdown);
   const postBg = useColorModeValue("blackAlpha.100", "blackAlpha.300");
   const bqBg = useColorModeValue("blackAlpha.300", "blackAlpha.500");
   const bqBorder = useColorModeValue("blackAlpha.500", "whiteAlpha.500");
@@ -45,19 +51,29 @@ const Post: NextPage<IPostItem> = ({post}) => {
               <Heading as="h2" mb="1em">{post.title}</Heading>
               <ReactMarkdown
                 components={{
+                  pre({children}: any) {
+                    // @ts-ignore
+                    return (
+                        <SyntaxHighlighter style={darcula} language={"javascript"} showLineNumbers>
+                          {children[0]?.props.children}
+                        </SyntaxHighlighter>
+                    )
+                  },
                   code({children}) {
                     return (
-                      <SyntaxHighlighter style={darcula} language={"javascript"} showLineNumbers>
-                        {children[0]}
-                      </SyntaxHighlighter>
-                    );
+                      <Tag>
+                        <code>
+                          {children[0]}
+                        </code>
+                      </Tag>
+                    )
                   },
                   a(props) {
                     return <Link href={props.href} target="_blank" rel="noreferrer">{props.children}</Link>
                   },
                   blockquote(props) {
                     return (
-                      <Box bg={bqBg} p="1em 1em 1em 2em" borderLeft="0.5em solid" borderColor={bqBorder} m="0">
+                      <Box bg={bqBg} p="1em 1em 1em 2em" borderLeft="0.5em solid" borderColor={bqBorder} m="0.5em 0 0 0">
                         {props.children}
                       </Box>
                     )

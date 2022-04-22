@@ -37,14 +37,20 @@ export const nodeToDom = (item: any) => {
         node.childs = childrens.join("");
       }
     }
+    if (item.tag === "code") {
+      let children = item.children[0];
+      children.replace(/</g, `&lt;`);
+      children.replace(/>/g, `&gt;`);
+      node.childs = children;
+    }
   }
   if (item.tag === "pre") {
-    return `<${item.tag}><code>${item.children[0]}</code></${item.tag}>`
+    return `<${item.tag}><code>${item.children[0]}</code></${item.tag}>`;
   }
   if (node.tag.length > 0) {
-    return `<${node.tag} ${[...node.attrs]}>${node.childs}</${node.tag}>`
+    return `<${node.tag} ${[...node.attrs]}>${node.childs}</${node.tag}>`;
   } else {
-    return `${node.childs}`
+    return `${node.childs}`;
   }
 };
 
