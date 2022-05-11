@@ -3,35 +3,32 @@ import Head from "next/head";
 import {useRouter} from "next/router";
 import NextLink from "next/link";
 import axios from "axios";
-import {NodeHtmlMarkdown} from 'node-html-markdown';
 import ReactMarkdown from "react-markdown";
 import {Prism as SyntaxHighlighter} from "react-syntax-highlighter";
 import {darcula} from "react-syntax-highlighter/dist/cjs/styles/prism";
 import {theme} from "../../../styles/Chakra/theme";
 import {
-  ColorModeScript, Container, Heading, Box, Flex, Tag, Link, Text, Button, Icon, Divider,
+  Box,
+  Button,
+  ColorModeScript,
+  Container,
+  Divider,
+  Flex,
+  Heading,
+  Icon,
+  Link,
+  Tag,
+  Text,
   useColorModeValue
 } from "@chakra-ui/react";
-import {FaRegEye} from "react-icons/fa";
 import {AiOutlineArrowLeft} from "react-icons/ai";
-import {getPostBaseUrl, postsUrls} from "../../../config/config";
-import {IPostItem} from "../../../config/types";
+import {IBlogData, IPostData} from "../../../config/types";
 import Layout from "../../../components/Layout/Layout";
 import {GetStaticPaths, GetStaticProps, NextPage} from "next";
-import {nodeToDom} from "../../api/hello";
 
-const Post: NextPage<IPostItem> = ({post}) => {
+const Post: NextPage<IPostData> = ({data}) => {
   const router = useRouter();
-  // console.log(post)
-  const postBody = post.content.map(item => {
-    return nodeToDom(item);
-  });
-  // console.log(postBody)
-  const postBodyMarkdown = NodeHtmlMarkdown.translate(postBody.join(""),
-    {},
-    {},
-    {});
-  // console.log(postBodyMarkdown);
+  const post = data.data.attributes;
   const postBg = useColorModeValue("blackAlpha.100", "blackAlpha.300");
   const bqBg = useColorModeValue("blackAlpha.300", "blackAlpha.500");
   const bqBorder = useColorModeValue("blackAlpha.500", "whiteAlpha.500");
@@ -47,27 +44,26 @@ const Post: NextPage<IPostItem> = ({post}) => {
           <Container maxW="container.lg" textAlign="center">
             <Flex className="blog__post" flexDirection="column" p="1.5em" textAlign="left" bg={postBg}
                   borderRadius="lg">
-              <Tag alignSelf="flex-start" as="a" href={post.author_url} bg={bqBg}>{post.author_name}</Tag>
+              <Tag alignSelf="flex-start" bg={bqBg}>{post.date}</Tag>
               <Heading as="h2" mb="1em">{post.title}</Heading>
               <ReactMarkdown
                 components={{
-                  pre({children}: any) {
-                    // @ts-ignore
-                    return (
-                        <SyntaxHighlighter style={darcula} language={"javascript"} showLineNumbers>
-                          {children[0]?.props.children}
+                    code({node, inline, className, children, ...props}) {
+                      const match = /language-(\w+)/.exec(className || '')
+                      return !inline && match ? (
+                        <SyntaxHighlighter style={darcula} language={match[1]} PreTag="div" {...props}>
+                          {String(children).replace(/\n$/, '')}
                         </SyntaxHighlighter>
-                    )
-                  },
-                  code({children}) {
-                    return (
-                      <Tag>
-                        <code>
-                          {children[0]}
+                      ) : (
+                        <code className={className} {...props}>
+                          <Tag>
+                            <code>
+                              {children[0]}
+                            </code>
+                          </Tag>
                         </code>
-                      </Tag>
-                    )
-                  },
+                      )
+                    },
                   a(props) {
                     return <Link href={props.href} target="_blank" rel="noreferrer">{props.children}</Link>
                   },
@@ -82,7 +78,7 @@ const Post: NextPage<IPostItem> = ({post}) => {
                     return <Text>{props.children}</Text>
                   }
                 }}>
-                {postBodyMarkdown}
+                {post.body}
               </ReactMarkdown>
               <Divider mt="1em" bg={bqBg}/>
               <Box mt="1em" textAlign="justify">
@@ -91,10 +87,6 @@ const Post: NextPage<IPostItem> = ({post}) => {
                   <Link target="_blank">{"https://t.me/baikalFront"}</Link>
                 </NextLink>
               </Box>
-              <Flex alignSelf="flex-end" alignItems="center" gap="0.5em" mt="1em">
-                <Icon as={FaRegEye}/>
-                {post.views}
-              </Flex>
             </Flex>
             <Flex mt="2em" justifyContent="space-between" gap="1em">
               <Button as="a" variant="outline" bg={postBg} cursor="pointer" onClick={() => router.push("/blog")}
@@ -125,39 +117,26 @@ const Post: NextPage<IPostItem> = ({post}) => {
 export default Post;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const posts: Array<any> = [];
-  let paths = [];
-  await Promise.all(postsUrls.map(url => axios.get(url)))
-    .then(results => {
-      results.forEach((result) => {
-        posts.push(result.data.result)
-      })
-    });
-
-  paths = posts.map(post => {
-    return {params: {id: post.path}}
+  const response = await axios.get(`https://warm-plains-44935.herokuapp.com/api/posts`);
+  const posts: IBlogData = await response.data;
+  // @ts-ignore
+  const paths = posts.data.map(item => {
+    return {params: {id: String(item.id)}}
   });
 
   return {
     paths,
-    fallback: false // false or 'blocking'
+    fallback: false,
   };
-}
+};
 
-// @ts-ignore
 export const getStaticProps: GetStaticProps = async ({params}) => {
-  const response = await axios.get(`${getPostBaseUrl}${params?.id}?return_content=true`);
-  const post = await response.data.result;
-
-  post.content.forEach((item: any) => {
-    if (item.tag === "figure") {
-      item.children[0].attrs.src = `https://telegra.ph${item.children[0].attrs.src}`;
-    }
-  });
+  const {data} = await axios.get(`https://warm-plains-44935.herokuapp.com/api/posts/${params?.id}`);
 
   return {
     props: {
-      post
-    }
+      data,
+    },
+    revalidate: 3600,
   };
-}
+};
