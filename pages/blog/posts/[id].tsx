@@ -45,7 +45,7 @@ const Post: NextPage<IPostData> = ({data}) => {
             <Flex className="blog__post" flexDirection="column" p="1.5em" textAlign="left" bg={postBg}
                   borderRadius="lg">
               <Tag alignSelf="flex-start" bg={bqBg}>{post.date}</Tag>
-              <Heading as="h2" mb="1em">{post.title}</Heading>
+              <Heading as="h1" mb="1em">{post.title}</Heading>
               <ReactMarkdown
                 components={{
                     code({node, inline, className, children, ...props}) {
@@ -76,6 +76,16 @@ const Post: NextPage<IPostData> = ({data}) => {
                   },
                   p(props) {
                     return <Text>{props.children}</Text>
+                  },
+                  h2(props) {
+                      return (
+                        <Heading as="h2" fontSize="1.5em">{props.children}</Heading>
+                      )
+                  },
+                  h3(props) {
+                    return (
+                      <Heading as="h3" fontSize="1.25em">{props.children}</Heading>
+                    )
                   }
                 }}>
                 {post.body}
@@ -117,7 +127,7 @@ const Post: NextPage<IPostData> = ({data}) => {
 export default Post;
 
 export const getStaticPaths: GetStaticPaths = async () => {
-  const response = await axios.get(`https://warm-plains-44935.herokuapp.com/api/posts`);
+  const response = await axios.get(`https://warm-plains-44935.herokuapp.com/api/posts?sort[0]=id`);
   const posts: IBlogData = await response.data;
   // @ts-ignore
   const paths = posts.data.map(item => {

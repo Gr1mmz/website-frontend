@@ -35,7 +35,7 @@ const Blog: NextPage<IBlogData> = ({data}) => {
 export default Blog;
 
 export const getStaticProps: GetStaticProps = async () => {
-  const response = await axios.get(`https://warm-plains-44935.herokuapp.com/api/posts`);
+  const response = await axios.get(`https://warm-plains-44935.herokuapp.com/api/posts?sort[0]=id`);
   const data = await response.data;
   return {
     props: {
