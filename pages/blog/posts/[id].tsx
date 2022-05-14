@@ -56,7 +56,7 @@ const Post: NextPage<IPostData> = ({data}) => {
                         </SyntaxHighlighter>
                       ) : (
                         <code className={className} {...props}>
-                          <Tag>
+                          <Tag color="#EB4433">
                             <code>
                               {children[0]}
                             </code>
