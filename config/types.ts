@@ -1,38 +1,41 @@
-//blog/index.tsx
-export type PostData = {
-  post: PostType
+//==================================================================
+
+//blog/index interface
+
+export interface IBlogData {
+  data: {
+    data: Array<PostArray>,
+    meta: object
+  }
 }
-export type PostType = {
-  result: PostProperties
+
+export interface IPostsList {
+  posts: Array<PostArray>
 }
-//postsList
+
 export interface IPostData {
-  posts: Array<PostData>
-}
-//postItem, [id]
-export interface IPostItem {
-  post: PostProperties
-}
-
-export type PostContentType = {
-  tag: string,
-  children: Array<string>,
-  attrs?: Array<object>
-}
-//api nodeToDom fn
-export type NodeType = {
-  tag: string,
-  attrs: Array<string>,
-  childs: string
+  data: {
+    data: {
+      attributes: PostProperties,
+      id: number
+    }
+    meta: object
+  }
 }
 
-type PostProperties = {
-  author_name: string,
-  author_url: string,
-  content: Array<PostContentType>,
+export type PostArray = {
+  id: number,
+  attributes: PostProperties
+}
+
+export type PostProperties = {
+  body: string,
+  createdAt: string,
+  date: string,
   description: string,
-  path: string,
+  likes: number,
+  publishedAt: string,
   title: string,
-  url: string,
-  views: number
+  updatedAt: string
 }
+

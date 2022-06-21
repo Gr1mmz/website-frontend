@@ -1,13 +1,13 @@
 import React from "react";
 import {Flex, Heading} from "@chakra-ui/react";
 import PostItem from "./PostItem";
-import {IPostData} from "../../../config/types";
+import {IPostsList} from "../../../config/types";
 
-const PostsList: React.FC<IPostData> = ({posts}) => {
+const PostsList: React.FC<IPostsList> = ({posts}) => {
   return (
     <Flex mb="2em" direction="column-reverse">
       {posts
-          ? posts.map(post => <PostItem key={post.post.result.path} post={post.post.result}/>)
+          ? posts.map(post => <PostItem key={post.id} attributes={post.attributes} id={post.id}/>)
           : <Heading as="h3">Постов пока нет</Heading>}
     </Flex>
   );
