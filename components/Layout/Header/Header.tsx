@@ -11,7 +11,7 @@ const Header = () => {
   const headerBackground = useColorModeValue("gray.50", "gray.700");
   const headerShadow = useColorModeValue("md", undefined);
   return (
-    <Flex as="header" alignItems="center" position="fixed" height="55px" zIndex="10" width="100%" fontSize="1em"
+    <Flex as="header" alignItems="center" position="fixed" height="55px" zIndex="20" width="100%" fontSize="1em"
           bg={headerBackground} boxShadow={headerShadow}
           sx={{
             "@media screen and (max-width: 500px)": {
@@ -42,7 +42,7 @@ const Header = () => {
             <NextLink href="/#portfolio" passHref>
               <Link>Портфолио</Link>
             </NextLink>
-            <NextLink href="/blog" passHref shallow={true}>
+            <NextLink href="/#blog" passHref shallow={true}>
               <Link>Блог</Link>
             </NextLink>
           </Flex>

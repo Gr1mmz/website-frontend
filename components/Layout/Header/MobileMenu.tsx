@@ -23,8 +23,8 @@ const MobileMenu = () => {
               <NextLink href="/#portfolio" passHref>
                 <Link onClick={onClose}>Портфолио</Link>
               </NextLink>
-              <NextLink href="/blog" passHref>
-                <Link>Блог</Link>
+              <NextLink href="/#blog" passHref>
+                <Link onClick={onClose}>Блог</Link>
               </NextLink>
             </Flex>
           </DrawerBody>

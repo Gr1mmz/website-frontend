@@ -38,13 +38,5 @@ export const footerLinks = {
       url: "https://www.typescriptlang.org/",
       title: "TypeScript",
     },
-    {
-      url: "https://strapi.io/",
-      title: "Strapi CMS",
-    },
-    {
-      url: "https://www.heroku.com/",
-      title: "Heroku",
-    },
   ]
 }

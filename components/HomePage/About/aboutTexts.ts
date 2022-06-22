@@ -1,5 +1,6 @@
 import {FaHtml5, FaCss3Alt, FaJsSquare, FaReact, FaGit, FaFigma} from "react-icons/fa";
-import {SiRedux, SiWebpack, SiNextdotjs, SiSass, SiTypescript, SiAdobephotoshop, SiWebstorm} from "react-icons/si";
+import {SiRedux, SiWebpack, SiNextdotjs, SiSass, SiTypescript, SiAdobephotoshop, SiWebstorm, SiMobx, SiEslint,
+  SiVisualstudiocode} from "react-icons/si";
 
 export const aboutTexts = {
   about: "Привет. Меня зовут Михаил. Мне 26 лет. Я из города Иркутск. Того самого, что рядом с Байкалом." +
@@ -74,12 +75,15 @@ export const aboutTexts = {
     {icon: FaJsSquare, color: "#FFDF00", label: "JavaScript"},
     {icon: FaReact, color: "#5ADAFD", label: "React"},
     {icon: SiRedux, color: "#764abc", label: "Redux"},
+    {icon: SiMobx, color: "#D55A10", label: "MobX"},
     {icon: SiWebpack, color: "#764abc", label: "Webpack"},
-    {icon: SiNextdotjs, color: "#000", label: "Next.JS"},
+    {icon: SiNextdotjs, color: "#000", label: "Next JS"},
     {icon: SiTypescript, color: "#2f72bc", label: "TypeScript"},
     {icon: FaGit, color: "#e44c30", label: "Git"},
+    {icon: SiEslint, color: "#462EB9", label: "ESLint"},
     {icon: FaFigma, color: "#000", label: "Figma"},
     {icon: SiAdobephotoshop, color: "#001d33", label: "Photoshop"},
     {icon: SiWebstorm, color: "#0babcc", label: "WebStorm"},
+    {icon: SiVisualstudiocode, color: "#379EE6", label: "VS Code"},
   ]
 }

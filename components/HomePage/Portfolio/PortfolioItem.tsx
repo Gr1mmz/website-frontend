@@ -7,7 +7,7 @@ interface PortfolioItemProps {
   data: {
     header: string,
     imageSrc: string,
-    link: string,
+    link?: string,
     githubLink: string,
     description: string,
     instruments: string,
@@ -45,9 +45,13 @@ const PortfolioItem: React.FC<PortfolioItemProps> = ({data}) => {
             <Button as="a" leftIcon={<FaGithub/>} variant="solid" target="_blank" href={data.githubLink}>
               Открыть на GitHub
             </Button>
-            <Button as="a" rightIcon={<FiArrowRight/>} variant="outline" target="_blank" href={data.link}>
-              Посмотреть результат
-            </Button>
+            {data.link
+              ?
+              <Button as="a" rightIcon={<FiArrowRight/>} variant="outline" target="_blank" href={data.link}>
+                Посмотреть результат
+              </Button>
+              : null
+            }
           </Flex>
         </Box>
       </Flex>

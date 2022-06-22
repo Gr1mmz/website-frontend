@@ -36,6 +36,15 @@ export const portfolioTexts = [
     features: "SPA, React, Redux",
   },
   {
+    header: "ToDo List React + MobX",
+    imageSrc: "./todomobx.webp",
+    link: "https://todomobx.kraevskiy-web.ru/",
+    githubLink: "https://github.com/Gr1mmz/next_mobx_material-app",
+    description: "Еще одно приложение - Список дел на React с использованием библиотеки MobX. Сделано на этапе изучения MobX и Material UI, чтобы углубиться в стек разработки в стартапе. Позволяет добавлять или удалять дела, отмечать как выполненные, фильтровать по признакам.",
+    instruments: "JavaScript, React, MobX, Material UI",
+    features: "SPA, React, MobX, Material UI",
+  },
+  {
     header: "Movie Library",
     imageSrc: "./movielib.webp",
     link: "https://movielib.kraevskiy-web.ru/",
@@ -43,5 +52,13 @@ export const portfolioTexts = [
     description: "Single Page Application, созданное с помощью библиотеки React и TheMovieDataBase API. На текущий момент реализована только frontend часть. Функционал - показ новых релизов фильмов и популярных сейчас сериалов, поиск по жанрам, поиск по названию, отображение информации о фильме на отдельной странице, показ похожих фильмов. На данный момент не работает без VPN",
     instruments: "HTML, СSS (module CSS), JavaScript, React (hooks, react-router-dom, HOC, axios), TMDB API",
     features: "SPA, React, JSX, Responsive, Preloader, CSS Grid",
+  },
+  {
+    header: "Socail Apes",
+    imageSrc: "./socialapes.webp",
+    githubLink: "https://github.com/Gr1mmz/social_network-frontend",
+    description: "Полноценное fullstack приложение - социальная сеть, созданное с помощью NextJS (frontend) и Back4app (backend). На текущий момент реализован функционал авторизации и логина с валидацией на клиенте и на сервере, создана страница профиля и 404 страница. Хостинга пока нет.",
+    instruments: "NextJS, TypeScript, Back4app, Material UI, ESLint, Redux, Formik, yup, Parse",
+    features: "SPA, NextJS, TypeScript, Login/Signup, Custom Alerts, Material UI",
   },
 ]
