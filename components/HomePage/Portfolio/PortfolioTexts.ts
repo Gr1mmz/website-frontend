@@ -47,6 +47,7 @@ export const portfolioTexts = [
   {
     header: "Movie Library",
     imageSrc: "./movielib.webp",
+    slides: ['./movielib.webp', './movielib/2.webp', './movielib/3.webp', './movielib/4.webp', './movielib/5.webp'],
     link: "https://movielib.kraevskiy-web.ru/",
     githubLink: "https://github.com/Gr1mmz/mov-lib-react",
     description: "Single Page Application, созданное с помощью библиотеки React и TheMovieDataBase API. На текущий момент реализована только frontend часть. Функционал - показ новых релизов фильмов и популярных сейчас сериалов, поиск по жанрам, поиск по названию, отображение информации о фильме на отдельной странице, показ похожих фильмов. На данный момент не работает без VPN",
@@ -54,8 +55,9 @@ export const portfolioTexts = [
     features: "SPA, React, JSX, Responsive, Preloader, CSS Grid",
   },
   {
-    header: "Socail Apes",
+    header: "Social Apes",
     imageSrc: "./socialapes.webp",
+    slides: ['./socialapes.webp', './socialapes/2.webp', './socialapes/3.webp', './socialapes/4.webp'],
     githubLink: "https://github.com/Gr1mmz/sn-test",
     description: "Полноценное fullstack приложение - социальная сеть, созданное с помощью NextJS (frontend) и Back4app (backend). На текущий момент реализован функционал регистрации и логина с валидацией на клиенте и на сервере, создана страница профиля, страница сообщений и 404 страница. Создан функционал добавления, изменения и удаления постов. Хостинга пока нет.",
     instruments: "NextJS, TypeScript, Back4app, Material UI, ESLint, Redux, Redux-toolkit, Formik, yup, Parse",
