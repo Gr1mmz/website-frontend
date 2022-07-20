@@ -1,8 +1,10 @@
 import React, {useEffect} from 'react';
-import {Box, Flex, Image, Heading, Center} from '@chakra-ui/react';
+import {Box, Flex, Image, Heading, Center, useColorModeValue} from '@chakra-ui/react';
 import text from './text';
 
 const Hero: React.FC = () => {
+  const wordsColor = useColorModeValue("blackAlpha.50", "blackAlpha.200");
+
   const getWords = () => {
     const words: Array<string> = [];
     for (let i = 0; i < 6; i++) {
@@ -15,7 +17,7 @@ const Hero: React.FC = () => {
 
   return (
     <Box as="section" position='relative' sx={{overflow: 'hidden'}}>
-      <Box position="absolute" fontSize="4em" color="blackAlpha.200" fontWeight="bold"
+      <Box position="absolute" fontSize="4em" color={wordsColor} fontWeight="bold"
            lineHeight="1em" top='-850px' right='0'
            sx={{
              transform: 'rotate(-25deg)',
@@ -23,7 +25,6 @@ const Hero: React.FC = () => {
              width: '150%',
              minWidth: '1920px'}}>
         {getWords().map(item => (`${item} `))}
-        {/*{console.log(words)}*/}
       </Box>
       <Box position="absolute" w="100%" h="100vh">
       </Box>

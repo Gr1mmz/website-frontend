@@ -56,9 +56,9 @@ export const portfolioTexts = [
   {
     header: "Socail Apes",
     imageSrc: "./socialapes.webp",
-    githubLink: "https://github.com/Gr1mmz/social_network-frontend",
-    description: "Полноценное fullstack приложение - социальная сеть, созданное с помощью NextJS (frontend) и Back4app (backend). На текущий момент реализован функционал авторизации и логина с валидацией на клиенте и на сервере, создана страница профиля и 404 страница. Хостинга пока нет.",
-    instruments: "NextJS, TypeScript, Back4app, Material UI, ESLint, Redux, Formik, yup, Parse",
+    githubLink: "https://github.com/Gr1mmz/sn-test",
+    description: "Полноценное fullstack приложение - социальная сеть, созданное с помощью NextJS (frontend) и Back4app (backend). На текущий момент реализован функционал регистрации и логина с валидацией на клиенте и на сервере, создана страница профиля, страница сообщений и 404 страница. Создан функционал добавления, изменения и удаления постов. Хостинга пока нет.",
+    instruments: "NextJS, TypeScript, Back4app, Material UI, ESLint, Redux, Redux-toolkit, Formik, yup, Parse",
     features: "SPA, NextJS, TypeScript, Login/Signup, Custom Alerts, Material UI",
   },
 ]
