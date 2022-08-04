@@ -1,13 +1,13 @@
 export const portfolioTexts = [
-  {
-    header: "Runsmart",
-    imageSrc: "./runsmart.webp",
-    link: "https://runsmart.kraevskiy-web.ru/",
-    githubLink: "https://github.com/Gr1mmz/runsmart",
-    description: "Верстка учебного макета интернет-магазина по продаже смарт-часов для бега. Верстка по макету из Figma.",
-    instruments: "HTML, SASS, JavaScript, Gulp, PHP Mailer",
-    features: "Модальные окна, форма обратной связи с валидацией, Adaptive, Slider, Burger"
-  },
+  // {
+  //   header: "Runsmart",
+  //   imageSrc: "./runsmart.webp",
+  //   link: "https://runsmart.kraevskiy-web.ru/",
+  //   githubLink: "https://github.com/Gr1mmz/runsmart",
+  //   description: "Верстка учебного макета интернет-магазина по продаже смарт-часов для бега. Верстка по макету из Figma.",
+  //   instruments: "HTML, SASS, JavaScript, Gulp, PHP Mailer",
+  //   features: "Модальные окна, форма обратной связи с валидацией, Adaptive, Slider, Burger"
+  // },
   {
     header: "Портфолио веб-разработчика",
     imageSrc: "./portfolio.webp",
@@ -45,6 +45,15 @@ export const portfolioTexts = [
     features: "SPA, React, MobX, Material UI",
   },
   {
+    header: "@parse/react-ssr",
+    imageSrc: "./parse-react-ssr.webp",
+    link: "https://github.com/parse-community/parse-react/pull/104",
+    githubLink: "https://github.com/Gr1mmz/parse-react",
+    description: "В процессе работы с библиотекой Parse была найдена ошибка. Создал форк библиотеки в свой GitHub, внес изменения и создал Pull Request, в котором описал суть ошибки - неправильный тип поля в возвращаемом объекте. Pull Request успешно смержился с мастер-веткой",
+    instruments: "TypeScript, NextJS, Parse",
+    features: "GitHub, Open Source libs",
+  },
+  {
     header: "Movie Library",
     imageSrc: "./movielib.webp",
     slides: ['./movielib.webp', './movielib/2.webp', './movielib/3.webp', './movielib/4.webp', './movielib/5.webp'],
@@ -58,8 +67,9 @@ export const portfolioTexts = [
     header: "Social Apes",
     imageSrc: "./socialapes.webp",
     slides: ['./socialapes.webp', './socialapes/2.webp', './socialapes/3.webp', './socialapes/4.webp'],
+    link: "https://socialapes.vercel.app/",
     githubLink: "https://github.com/Gr1mmz/sn-test",
-    description: "Полноценное fullstack приложение - социальная сеть, созданное с помощью NextJS (frontend) и Back4app (backend). На текущий момент реализован функционал регистрации и логина с валидацией на клиенте и на сервере, создана страница профиля, страница сообщений и 404 страница. Создан функционал добавления, изменения и удаления постов. Хостинга пока нет.",
+    description: "Полноценное fullstack приложение - социальная сеть, созданное с помощью NextJS (frontend) и Back4app (backend). На текущий момент реализован функционал регистрации и авторизации с валидацией на клиенте и на сервере, создана страница профиля, страница сообщений и 404 страница. Создан функционал добавления, изменения и удаления постов и лайков",
     instruments: "NextJS, TypeScript, Back4app, Material UI, ESLint, Redux, Redux-toolkit, Formik, yup, Parse",
     features: "SPA, NextJS, TypeScript, Login/Signup, Custom Alerts, Material UI",
   },
